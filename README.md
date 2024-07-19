@@ -16,12 +16,20 @@ This is a step by step to deploy a SNO lab environment with:
                                                       | (Port1)
                                                       |
                                                       | (Port1)
-                                                    Switch 
+                                                    Switch (192.168.10.104)
+                                                      |
                         Port2                LACP (Port4,Port8)            LACP (Port3, Port6)
                           |                         |(VLAN330)                 |(VLAN330)
                           |                         |                          |
-                        DNS/LB                    SNO                       Worker
+                        DNS/LB                    SNO                        Worker
+                    192.168.10.10            192.168.10.51              192.168.10.61
 ```
+
+### BOM
+- AC1200 Wi-Fi Router
+- GS108TV3 Switch
+- MeLe Quieter2Q for DNS/LB running CentOS Stream 9
+- Beelink SER5 for SNO and Worker 
 
 ## dnsmasq to handle internal DNS
 
