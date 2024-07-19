@@ -9,7 +9,19 @@ This is a step by step to deploy a SNO lab environment with:
 - deploying OpenShift Virtualization
 
 
+## Environment
 
+```
+                                         Router with DHCP (192.168.10.0/24)
+                                                      | (Port1)
+                                                      |
+                                                      | (Port1)
+                                                    Switch 
+                        Port2                LACP (Port4,Port8)            LACP (Port3, Port6)
+                          |                         |(VLAN330)                 |(VLAN330)
+                          |                         |                          |
+                        DNS/LB                    SNO                       Worker
+```
 
 ## dnsmasq to handle internal DNS
 
