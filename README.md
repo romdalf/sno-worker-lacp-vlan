@@ -214,3 +214,37 @@ Jul 19 13:54:51 lb haproxy[1076]: [WARNING]  (1076) : Server okd4_https_ingress_
 Jul 19 13:54:51 lb haproxy[1076]: [ALERT]    (1076) : backend 'okd4_https_ingress_traffic_be' has no server available!
 ```
 
+## SNO Deployment
+
+The configuration ```install-config.yaml```
+```
+apiVersion: v1
+baseDomain: beezy.local
+compute: 
+- hyperthreading: Enabled 
+  name: worker
+  replicas: 0 
+controlPlane: 
+  hyperthreading: Enabled 
+  name: master
+  replicas: 1 
+metadata:
+  name: sno 
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/14 
+    hostPrefix: 23 
+  networkType: OVNKubernetes 
+  serviceNetwork: 
+  - 172.30.0.0/16
+platform:
+  none: {} 
+bootstrapInPlace:
+  installationDisk: [/dev/sda|/dev/nvme0n1]
+fips: false 
+pullSecret: '' 
+sshKey: '' 
+```
+***Note: insert your own ```pullSecret``` and ```sshKey```***
+
+
