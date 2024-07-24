@@ -3,13 +3,13 @@ This is a step by step to deploy a SNO lab environment with:
 
 - a Single Node OpenShift
 - a link aggregation (LACP)
-- a VLAN on the link aggregation
+- a VLAN on the link aggregation (as a second step)
 - adding a worker
 - deploying LVM on NVMe
 - deploying OpenShift Virtualization
 
 
-## Environment
+## Environment w/o VLAN
 
 ```
                              Router with DHCP (192.168.10.0/24)
@@ -18,8 +18,9 @@ This is a step by step to deploy a SNO lab environment with:
                                       | (Port1)
                                     Switch (192.168.10.104)
                                       |
+            |-------------------------|--------------------------|
           Port2                LACP (Port4,Port8)            LACP (Port3, Port6)
-            |                         |(VLAN330)                 |(VLAN330)
+            |                         |                          |
             |                         |                          |
           DNS/LB                     SNO                       Worker
       192.168.10.10             192.168.10.51              192.168.10.61
