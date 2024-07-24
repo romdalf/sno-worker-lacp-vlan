@@ -292,4 +292,30 @@ drwxr-x--- 1 rovandep rovandep      56 Jul 24 09:14 auth
 -rw-r----- 1 rovandep rovandep    1717 Jul 24 09:14 worker.ign
 ```
 
+Get the latest Red Hat CoreOS OpenShift ISO available on the [OpenShift Mirror](https://mirror.openshift.com/pub/)
 
+Then create an alias to the coreos-installer container image to modify the ISO:
+
+```
+alias coreos-installer='podman run --privileged --pull always --rm \
+-v /dev:/dev -v /run/udev:/run/udev -v $PWD:/data \
+-w /data quay.io/coreos/coreos-installer:release'
+```
+
+Embed the ignition template in the ISO
+```
+coreos-installer iso ignition embed -fi ocp/bootstrap-in-place-for-live-iso.ign rhcos-live-sno.x86_64.iso
+```
+
+Expected output:
+```
+Trying to pull quay.io/coreos/coreos-installer:release...
+Getting image source signatures
+Copying blob 6bb4232ad7af skipped: already exists  
+Copying blob 74bb9e361085 skipped: already exists  
+Copying blob 0af9cdd8df93 skipped: already exists  
+Copying config f0af5149de done   | 
+Writing manifest to image destination
+```
+
+Burn the ISO on a USB disk - in my case, running Fedora, I am using the Fedora Media Writer app. 
