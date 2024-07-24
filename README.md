@@ -45,6 +45,9 @@ listen-address=127.0.0.1,192.168.10.10
 expand-hosts
 domain=beezy.local
 
+address=/lb.beezy.local/192.168.10.10
+ptr-record=10.10.168.192.in-addr.arpa,lb.beezy.local
+
 address=/bst.beezy.local/192.168.10.50
 address=/c01.beezy.local/192.168.10.51
 address=/c02.beezy.local/192.168.10.52
