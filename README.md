@@ -220,7 +220,22 @@ Jul 19 13:54:51 lb haproxy[1076]: [ALERT]    (1076) : backend 'okd4_https_ingres
 
 ## SNO Deployment
 
-The configuration ```install-config.yaml```
+### Tooling
+Make sure to have on your system:  
+* ```oc```, the OpenShift CLI 
+* ```openshift-installer```, the OpenShift installer helper
+
+All available here on the [OpenShift Mirror](https://mirror.openshift.com/pub/)
+
+### Prep'ing
+
+Make a directory called ```mycluster``` with another one called ```ocp```: 
+
+```
+mkdir -p mycluster/ocp
+```
+
+The configuration ```install-config.yaml``` to keep in the root directory for backup and to copy in ```ocp```:
 ```
 apiVersion: v1
 baseDomain: beezy.local
@@ -250,5 +265,31 @@ pullSecret: ''
 sshKey: '' 
 ```
 ***Note: insert your own ```pullSecret``` and ```sshKey```***
+
+Create the ignition templaes:
+
+```
+openshift-install --dir=ocp create single-node-ignition-config
+```
+
+Expected output:
+``` 
+INFO Consuming Install Config from target directory 
+WARNING Making control-plane schedulable by setting MastersSchedulable to true for Scheduler cluster settings 
+INFO Single-Node-Ignition-Config created in: ocp and ocp/auth
+```
+Expected folder structure:
+```
+ls -al ocp/
+total 2152
+drwxr-xr-x 1 rovandep rovandep     226 Jul 24 09:14 .
+drwxr-xr-x 1 rovandep rovandep     242 Jul 24 09:08 ..
+drwxr-x--- 1 rovandep rovandep      56 Jul 24 09:14 auth
+-rw-r----- 1 rovandep rovandep  288780 Jul 24 09:14 bootstrap-in-place-for-live-iso.ign
+-rw-r----- 1 rovandep rovandep     134 Jul 24 09:14 metadata.json
+-rw-r--r-- 1 rovandep rovandep   73930 Jul 24 09:14 .openshift_install.log
+-rw-r----- 1 rovandep rovandep 1825411 Jul 24 09:14 .openshift_install_state.json
+-rw-r----- 1 rovandep rovandep    1717 Jul 24 09:14 worker.ign
+```
 
 
